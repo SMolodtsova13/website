@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ренидент</title>
+    <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="logo.svg" alt="">
+        </div>
+        <div class="content">
+
+            <div class="custom-select-container">
+                <select id="location-select" class="custom-select">
+                    <option value="person1">Петров А. М.</option>
+                    <option value="person2">Петрова О. Г.</option>
+                </select>
+            </div>
+
+            <div class="custom-select-container mb20">
+                <select id="location-select" class="custom-select">
+                    <option value="kolpino">Колпино</option>
+                    <option value="optikov">Оптиков</option>
+                    <option value="kudrovo">Кудрово</option>
+                    <option value="komenda">Комендантский</option>
+                    <option value="devyatkino">Девяткино</option>
+                    <option value="parnas">Парнас</option>
+                    <option value="geroev">Героев</option>
+                    <option value="varshavskiy">Варшавский</option>
+                </select>
+            </div>
+
+            <div class="buttons">
+                <button class="inactive" onclick="showPopup();">Заказать звонок</button>
+                <button class="active" onclick="Telegram.WebApp.showAlert('Справка заказана');">Заказать справку</button>
+            </div>
+            <div class="accounts">
+                <div class="account personal">
+                    <span class="account-title">Личный счёт</span>
+                    <span class="account-balance">4 770.00</span>
+                </div>
+                <div class="account family">
+                    <span class="account-title">Семейный счёт</span>
+                    <span class="account-balance">50 270.00</span>
+                </div>
+            </div>
+            
+            <div class="appointments">
+                <div class="upcoming">
+                    <h3>Будущие приёмы</h3>
+                    <div class="appointment_next">
+                        <div>
+                            <div>16 авг (вт) 14:00 - 15:00</div>
+                            <div>Врач: Макарова К. А.</div>
+                        </div>
+                        <div>6 дней</div>
+                    </div>
+                    <div class="appointment">
+                        <div>
+                            <div>26 авг (пт) 10:00 - 11:30</div>
+                            <div>Врач: Макарова К. А.</div>
+                        </div>
+                        <div>16 дней</div>
+                    </div>
+                    <div class="appointment">
+                        <div>
+                            <div>6 сен (вс) 15:00 - 16:00</div>
+                            <div>Врач: Макарова К. А.</div>
+                        </div>
+                        <div>25 дней</div>
+                    </div>
+                </div>
+                <div class="past">
+                    <h3>Завершённые приёмы</h3>
+                    <div class="appointment_past">
+                        <div>
+                            <div>16 авг (вт) 14:00 - 15:00</div>
+                            <div>Врач: Макарова К. А.</div>
+                        </div>
+                        <div>15 дней назад</div>
+                    </div>
+                    <div class="appointment_past">
+                        <div>
+                            <div>26 авг (пт) 10:00 - 11:30</div>
+                            <div>Врач: Макарова К. А.</div>
+                        </div>
+                        <div>25 дней назад</div>
+                    </div>
+                    <div class="appointment_past">
+                        <div>
+                            <div>6 сен (вс) 15:00 - 16:00</div>
+                            <div>Врач: Макарова К. А.</div>
+                        </div>
+                        <div>45 дней назад</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script>
+        // Init TWA
+        Telegram.WebApp.ready();
+
+        // Event occurs whenever theme settings are changed in the user's Telegram app (including switching to night mode).
+        Telegram.WebApp.onEvent('themeChanged', function() {
+            document.documentElement.className = Telegram.WebApp.colorScheme;
+        });
+
+        // Show main button
+        Telegram.WebApp.MainButton.setParams({
+            text: 'Выход'
+        });
+        Telegram.WebApp.MainButton.onClick(function () {
+            Telegram.WebApp.close()
+        });
+        Telegram.WebApp.MainButton.show();
+
+        // Function to call showPopup API
+        function showPopup() {
+            Telegram.WebApp.showPopup({
+                title: 'Заказать звонок',
+                message: 'Администратор клиники перезвонит вам в течение 5 минут',
+                buttons: [
+                    {id: 'link', type: 'default', text: 'Перезвоните мне'},
+                    {type: 'cancel', text: 'Отмена'},
+                ]
+            }, function(btn) {
+                if (btn === 'hehehe') {
+                    Telegram.WebApp.openLink('https://ton.org/');
+                }
+            });
+        };
+
+        // Function to toggle main TWA button
+        function toggleMainButton() {
+            if (Telegram.WebApp.MainButton.isVisible) {
+                Telegram.WebApp.MainButton.hide();
+            } else {
+                Telegram.WebApp.MainButton.show();
+            }
+        };
+
+        function setViewportData() {
+            var sizeEl = document.getElementById('viewport-params-size');
+            sizeEl.innerText = 'width: ' + window.innerWidth + ' x ' +
+                'height: ' + Telegram.WebApp.viewportStableHeight;
+
+            var expandEl = document.querySelector('#viewport-params-expand');
+            expandEl.innerText = 'Is Expanded: ' + (Telegram.WebApp.isExpanded ? 'true' : 'false');
+        }
+
+        Telegram.WebApp.setHeaderColor('secondary_bg_color');
+
+        setViewportData();
+        Telegram.WebApp.onEvent('viewportChanged', setViewportData);
+
+        Telegram.WebApp.onEvent('themeChanged', function() {
+            document.body.setAttribute('style', '--bg-color:' + Telegram.WebApp.backgroundColor);
+        });
+
+    </script>
+</body>
+</html>
