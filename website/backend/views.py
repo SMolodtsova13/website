@@ -8,13 +8,6 @@ from django.shortcuts import render
 
 auth_data = pd.read_excel('auth.xlsx')
 
-def login(request):
-     return
-
-
-
-
-
 
 
 df = pd.read_excel('receptions.xlsx')
