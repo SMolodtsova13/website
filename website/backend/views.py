@@ -1,41 +1,50 @@
 import pandas as pd
 from datetime import datetime
 
+from django.shortcuts import render, redirect
 
-from django.shortcuts import render
-
-
-
-auth_data = pd.read_excel('auth.xlsx')
+from backend.forms import LoginForm
 
 
+auth_data = pd.read_excel('C:/Dev/Тестовое стоматология/website/website/backend/data/auth.xlsx')
 
-df = pd.read_excel('receptions.xlsx')
+receptions = pd.read_excel('C:/Dev/Тестовое стоматология/website/website/backend/data/receptions.xlsx')
 
-# Преобразуем столбцы к нужным типам
-date_columns = ['date_of_reception']
-string_columns = ['phone_number', 'clinic_name']
-integer_columns = ['patient_id', 'status']
-
-for col in date_columns:
-    df[col] = pd.to_datetime(df[col], errors='coerce')
-
-for col in string_columns:
-    df[col] = df[col].astype(str)
-
-for col in integer_columns:
-    df[col] = df[col].fillna(-1).astype(int)
+def index(request):
+    is_auth = request.session.get('is_auth', False)
+    if is_auth is False:
+        return redirect('backend:login')
+    user_id = request.session['patient_id']
+    return render(request, 'backend/index.html')
 
 
+def login(request):
+    with_error = False
+    form = None
 
-df['date'] = pd.to_datetime(df['date'], format='%Y-%m-%d %H:%M:%S')
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            login = form.cleaned_data['login']
+            password = form.cleaned_data['password']
+            # users = auth_data.query(f'login == @{login} & password == @{password}')
+            users = auth_data.query("login == @login and password == @password")
+            print(auth_data)
+            print(users)
 
-   # Устанавливаем типы данных
-types_map = {
-       'patient_id': int,
-       'name': str,
-       'phone_number': str
-}
-for col, dtype in types_map.items():
-       df[col] = df[col].astype(dtype)
-   
+            if len(users) > 0:
+                user_id = users['patient_id'].values[0]
+                request.session['patient_id'] = user_id
+                request.session['login'] = login
+                request.session['password'] = password
+                request.session['is_auth'] = True
+                print('Nen')
+                return redirect('backend:index')
+            with_error = True
+    
+    else:
+        form = LoginForm()
+
+    return render(
+        request, 'registration/login.html', {'form': form, 'with_error': with_error}
+    )

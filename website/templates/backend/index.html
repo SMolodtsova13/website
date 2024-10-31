@@ -1,13 +1,7 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ренидент</title>
-    <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+{% block title %}Ренидент{% endblock %}
+{% block content %}
     <div class="container">
         <div class="header">
             <img src="logo.svg" alt="">
@@ -164,5 +158,4 @@
         });
 
     </script>
-</body>
-</html>
+{% endblock %}
