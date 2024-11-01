@@ -1,11 +1,8 @@
 {% extends "base.html" %}
 {% load django_bootstrap5 %}
-{% block title %}Ренидент{% endblock %}
+{% block title %}Стоматология РениДент{% endblock %}
 {% block content %}
     <div class="container">
-        <div class="header">
-            <img src="logo.svg" alt="">
-        </div>
         <div class="content">
 
             <div class="custom-select-container">
@@ -15,6 +12,14 @@
                 </select>
             </div>
 
+
+
+           <!-- <p>Вы посещали следующие клиники:</p>
+                <ul>
+                    {% for clinic in clinics %}
+                        <li>{{ clinic }}</li>
+                    {% endfor %}
+                </ul> -->
             <div class="custom-select-container mb20">
                 <select id="location-select" class="custom-select">
                     <option value="kolpino">Колпино</option>
@@ -35,11 +40,11 @@
             <div class="accounts">
                 <div class="account personal">
                     <span class="account-title">Личный счёт</span>
-                    <span class="account-balance">4 770.00</span>
+                    <span class="account-balance">{{ personal_account }}</span>
                 </div>
                 <div class="account family">
                     <span class="account-title">Семейный счёт</span>
-                    <span class="account-balance">50 270.00</span>
+                    <span class="account-balance">{{ family_account }}</span>
                 </div>
             </div>
             

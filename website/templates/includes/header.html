@@ -1,0 +1,28 @@
+{% load static %}
+<header>
+  <nav class="navbar navbar-light" style="background-color: lightskyblue">
+    <div class="container">
+      <a class="navbar-brand" href="{% url 'backend:index' %}">
+        <img src="{% static 'logo.jpg' %}" width="30" height="30" class="d-inline-block align-top" alt="">
+        Стоматология РениДент
+      </a>
+      {% with request.resolver_match.view_name as view_name %}
+
+          {% if is_auth %}
+            <div class="btn-group" role="group" aria-label="Basic outlined example">
+              <button type="button" class="btn btn-outline-primary"><a class="text-decoration-none text-reset"
+                href="{% url 'backend:index' %}">{{ login }}</a></button>
+              <button type="button" class="btn btn-outline-primary"><a class="text-decoration-none text-reset"
+                href="{% url 'backend:logout' %}">Выйти</a></button>
+            </div>
+          {% else %}
+            <div class="btn-group" role="group" aria-label="Basic outlined example">
+              <button type="button" class="btn btn-outline-primary"><a class="text-decoration-none text-reset"
+                  href="{% url 'backend:login' %}">Войти</a></button>
+            </div>
+          {% endif %}
+        </ul>
+      {% endwith %}
+    </div>
+  </nav>
+</header>
