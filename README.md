@@ -5,8 +5,8 @@
 [![Python](https://img.shields.io/badge/-Python-464646?style=flat&logo=Python&logoColor=56C0C0&color=008080)](https://www.python.org/)
 [![Django](https://img.shields.io/badge/-Django-464646?style=flat&logo=Django&logoColor=56C0C0&color=008080)](https://www.djangoproject.com/)
 ![Bootstrap](https://img.shields.io/badge/bootstrap-464646?style=flat&logo=bootstrap&logoColor=56C0C0&color=008080)
-[![Pandas](https://img.shields.io/badge/-pandas-464646?style=flat&logo=pandas&logoColor=56C0C0&color=008080)]
-[![NumPy](https://img.shields.io/badge/-NumPy-464646?style=flat&logo=NumPy&logoColor=56C0C0&color=008080)]
+![Pandas](https://img.shields.io/badge/-pandas-464646?style=flat&logo=pandas&logoColor=56C0C0&color=008080)
+![NumPy](https://img.shields.io/badge/-NumPy-464646?style=flat&logo=NumPy&logoColor=56C0C0&color=008080)
 
 
 ## Описание проекта 
