@@ -14,7 +14,9 @@
         <div class="card-body">
           <form method="post" action="{% url 'backend:login' %}" novalidate>
             {% csrf_token %}
-            {{ form }}
+            <div style="display: flex; flex-direction: column;">
+              {{ form }}
+            </div>
             <input type="submit" value="OK" class="btn btn-primary mt-3">
           </form>
         </div>
@@ -23,34 +25,33 @@
   </div>
   
   <!-- Модальное окно -->
-  <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Ошибка авторизации</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
+  {% if with_error %}
+  <div class="modal" id="myModal" data-bs-backdrop="static" data-bs-focus="false" style="display: block;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Ошибка авторизации</h5>
+            </div>
+            <div class="modal-body">
+                <p>Не удалось войти в аккаунт. Неверный логин или пароль.</p>
+            </div>
+            <div class="modal-footer">
+                <button id="myModalBtn" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+            </div>
         </div>
-        <div class="modal-body">
-          <p>Не удалось войти в аккаунт. Неверный логин или пароль.</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-        </div>
-      </div>
     </div>
   </div>
+  {% endif %}
 </div>
 
 <script>
   // Показываем модальное окно, если есть ошибка авторизации
-  $(document).ready(function () {
-    var errorMessage = "{{ error_message }}";
-    if (errorMessage !== "") {
-      $('#errorModal').modal('show');
-    }
-  });
+  let modal = document.querySelector('#myModal');
+  let modalBtn = document.querySelector('#myModalBtn');
+  function closeModal(){
+    modal.style.display = 'none';
+  }
+  modalBtn.addEventListener('click',closeModal);
 </script>
 
 {% endblock %}

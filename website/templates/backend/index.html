@@ -4,38 +4,23 @@
 {% block content %}
     <div class="container">
         <div class="content">
-
+            <h2>Личный кабинет</h2>
             <div class="custom-select-container">
                 <select id="location-select" class="custom-select">
-                    <option value="person1">Петров А. М.</option>
-                    <option value="person2">Петрова О. Г.</option>
+                    <option value="person1">{{ patient_fio }}</option>
                 </select>
             </div>
-
-
-
-           <!-- <p>Вы посещали следующие клиники:</p>
-                <ul>
-                    {% for clinic in clinics %}
-                        <li>{{ clinic }}</li>
-                    {% endfor %}
-                </ul> -->
             <div class="custom-select-container mb20">
                 <select id="location-select" class="custom-select">
-                    <option value="kolpino">Колпино</option>
-                    <option value="optikov">Оптиков</option>
-                    <option value="kudrovo">Кудрово</option>
-                    <option value="komenda">Комендантский</option>
-                    <option value="devyatkino">Девяткино</option>
-                    <option value="parnas">Парнас</option>
-                    <option value="geroev">Героев</option>
-                    <option value="varshavskiy">Варшавский</option>
+                    {% for clinic in clinics %}
+                        <option>{{ clinic }}</option>
+                    {% endfor %}
                 </select>
             </div>
 
             <div class="buttons">
-                <button class="inactive" onclick="showPopup();">Заказать звонок</button>
-                <button class="active" onclick="Telegram.WebApp.showAlert('Справка заказана');">Заказать справку</button>
+                <button type="button" class="btn btn-secondary" onclick="showPopup();">Заказать звонок</button>
+                <button type="button" class="btn btn-secondary" onclick="Telegram.WebApp.showAlert('Справка заказана');">Заказать справку</button>
             </div>
             <div class="accounts">
                 <div class="account personal">
@@ -49,54 +34,34 @@
             </div>
             
             <div class="appointments">
-                <div class="upcoming">
-                    <h3>Будущие приёмы</h3>
-                    <div class="appointment_next">
-                        <div>
-                            <div>16 авг (вт) 14:00 - 15:00</div>
-                            <div>Врач: Макарова К. А.</div>
-                        </div>
-                        <div>6 дней</div>
+                {% if future_visits %}
+                    <div class="upcoming">
+                        <h3>Будущие приёмы</h3>
+                        {% for visit in future_visits %}
+                            <div class="appointment_next">
+                                <div>
+                                    <div>{{ visit.visit_time }}</div>
+                                    <div>Врач: {{ visit.doctor_fio }}</div>
+                                </div>
+                                <div>{{ visit.days_count }} дней</div>
+                            </div>
+                        {% endfor %}
                     </div>
-                    <div class="appointment">
-                        <div>
-                            <div>26 авг (пт) 10:00 - 11:30</div>
-                            <div>Врач: Макарова К. А.</div>
-                        </div>
-                        <div>16 дней</div>
+                {% endif %}
+                {% if finish_visits %}
+                    <div class="past">
+                        <h3>Завершённые приёмы</h3>
+                        {% for visit in finish_visits %}
+                            <div class="appointment_finish">
+                                <div>
+                                    <div>{{ visit.visit_time }}</div>
+                                    <div>Врач: {{ visit.doctor_fio }}</div>
+                                </div>
+                                <div>{{ visit.days_count }} дней</div>
+                            </div>
+                        {% endfor %}
                     </div>
-                    <div class="appointment">
-                        <div>
-                            <div>6 сен (вс) 15:00 - 16:00</div>
-                            <div>Врач: Макарова К. А.</div>
-                        </div>
-                        <div>25 дней</div>
-                    </div>
-                </div>
-                <div class="past">
-                    <h3>Завершённые приёмы</h3>
-                    <div class="appointment_past">
-                        <div>
-                            <div>16 авг (вт) 14:00 - 15:00</div>
-                            <div>Врач: Макарова К. А.</div>
-                        </div>
-                        <div>15 дней назад</div>
-                    </div>
-                    <div class="appointment_past">
-                        <div>
-                            <div>26 авг (пт) 10:00 - 11:30</div>
-                            <div>Врач: Макарова К. А.</div>
-                        </div>
-                        <div>25 дней назад</div>
-                    </div>
-                    <div class="appointment_past">
-                        <div>
-                            <div>6 сен (вс) 15:00 - 16:00</div>
-                            <div>Врач: Макарова К. А.</div>
-                        </div>
-                        <div>45 дней назад</div>
-                    </div>
-                </div>
+                {% endif %}
             </div>
         </div>
     </div>

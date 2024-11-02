@@ -1,16 +1,15 @@
+import os
 from pathlib import Path
+
+from django.core.management.utils import get_random_secret_key
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-i5%*4)wfe3kmr@!4llbqrt4ht=ir_k6(j7)s@ai$p@sbu-t#nt'
+SECRET_KEY = os.getenv('SECRET_KEY', get_random_secret_key())
 
 DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
-
-# LOGIN_REDIRECT_URL = 'blog:index'
-
-# LOGIN_URL = 'login'
 
 TEMPLATES_DIR = BASE_DIR / 'templates'
 
