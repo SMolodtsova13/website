@@ -3,18 +3,18 @@ import numpy as np
 import locale
 from datetime import datetime
 
+from django.conf import settings
 from django.shortcuts import render, redirect
 
 from backend.forms import LoginForm
-from website.settings import BASE_DIR
+
 
 locale.setlocale(locale.LC_ALL, '')
 
-
-auth_data = pd.read_excel(BASE_DIR / 'backend/data/auth.xlsx')
+auth_data = pd.read_excel(settings.BASE_DIR / 'backend/data/auth.xlsx')
 
 receptions = pd.read_excel(
-    BASE_DIR / 'backend/data/receptions.xlsx'
+    settings.BASE_DIR / 'backend/data/receptions.xlsx'
     ).fillna(pd.NaT)
 
 def prepare_date(df):
@@ -74,7 +74,9 @@ def index(request):
         visit_data = {
             'doctor_fio': doctor_fio,
             'days_count': days_count,
-            'visit_time': start_time.strftime('%d %b (%a) %H:%M') + '-' + end_time.strftime('%I:%M'),
+            'visit_time': start_time.strftime(
+                ('%d %b (%a) %H:%M') + '-' + end_time.strftime('%H:%M'),
+            )
         }
 
         if start_time.date() < now:
