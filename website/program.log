@@ -1,0 +1,8 @@
+2024-11-05 01:02:25,805, INFO, Отоброжена форма входа в аккаунт., backend.settings_for_log, login
+2024-11-05 01:02:27,686, INFO, Отоброжена форма входа в аккаунт., backend.settings_for_log, login
+2024-11-05 01:02:27,687, INFO, Отправлены данные из формы., backend.settings_for_log, login
+2024-11-05 01:02:27,693, DEBUG, Получили данные из формы., backend.settings_for_log, login
+2024-11-05 01:02:27,693, DEBUG, Найден пользователь: 33453., backend.settings_for_log, login
+2024-11-05 01:02:27,698, DEBUG, Данные подключения сохранены., backend.settings_for_log, login
+2024-11-05 01:02:43,397, INFO, C:\Dev\Тестовое стоматология\website\website\backend\settings_for_log.py changed, reloading., django.utils.autoreload, trigger_reload
+2024-11-05 01:02:51,130, INFO, C:\Dev\Тестовое стоматология\website\website\backend\settings_for_log.py changed, reloading., django.utils.autoreload, trigger_reload

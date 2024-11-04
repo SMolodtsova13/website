@@ -7,7 +7,9 @@ from django.conf import settings
 from django.shortcuts import render, redirect
 
 from backend.forms import LoginForm
+from backend.settings_for_log import create_logger
 
+logger = create_logger()
 
 locale.setlocale(locale.LC_ALL, '')
 
@@ -102,23 +104,30 @@ def login(request):
     """Функция входа в аккаунт."""
     with_error = False
     form = None
+    logger.info('Отоброжена форма входа в аккаунт.')
 
     if request.method == 'POST':
+        logger.info('Отправлены данные из формы.')
         form = LoginForm(request.POST)
         if form.is_valid():
             login = int(form.cleaned_data['login'])
             password = form.cleaned_data['password']
             users = auth_data.query('login == @login & password == @password')
+            logger.debug('Получили данные из формы.')
 
             if len(users) > 0:
                 user_id = users['patient_id'].values[0]
+                logger.debug(f'Найден пользователь: {user_id}.')
+
                 request.session['patient_id'] = str(user_id)
                 request.session['login'] = str(login)
                 request.session['password'] = password
                 request.session['is_auth'] = True
 
+                logger.debug('Данные подключения сохранены.')
                 return redirect('backend:index')
             with_error = True
+            logger.error(f'Пользователь {login} не найден!')
 
     else:
         form = LoginForm()

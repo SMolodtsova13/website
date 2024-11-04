@@ -52,11 +52,6 @@ python manage.py migrate
 python manage.py runserver
 ```
 
-- Создание супер пользователя(для доступа к админ панели)
-```
-python manage.py createsuperuser
-```
-
 ## Автор:  
 _Молодцова Светлана_  
 **telegram** _@smolodtsova_
