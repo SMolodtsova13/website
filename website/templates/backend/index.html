@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% load django_bootstrap5 %}
+
 {% block title %}Стоматология РениДент{% endblock %}
+
 {% block content %}
     <div class="container">
         <div class="content">
@@ -32,35 +34,53 @@
                     <span class="account-balance">{{ family_account }}</span>
                 </div>
             </div>
-            
+
             <div class="appointments">
                 {% if future_visits %}
-                    <div class="upcoming">
-                        <h3>Будущие приёмы</h3>
-                        {% for visit in future_visits %}
-                            <div class="appointment_next">
-                                <div>
-                                    <div>{{ visit.visit_time }}</div>
-                                    <div>Врач: {{ visit.doctor_fio }}</div>
-                                </div>
-                                <div>{{ visit.days_count }} дней</div>
-                            </div>
-                        {% endfor %}
-                    </div>
+                <div class="upcoming">
+                    <h3>Будущие приёмы</h3>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Время</th>
+                                <th>Врач</th>
+                                <th>Дни до приёма</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for visit in future_visits %}
+                            <tr>
+                                <td>{{ visit.visit_time }}</td>
+                                <td>{{ visit.doctor_fio }}</td>
+                                <td>{{ visit.days_count }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
                 {% endif %}
                 {% if finish_visits %}
-                    <div class="past">
-                        <h3>Завершённые приёмы</h3>
-                        {% for visit in finish_visits %}
-                            <div class="appointment_finish">
-                                <div>
-                                    <div>{{ visit.visit_time }}</div>
-                                    <div>Врач: {{ visit.doctor_fio }}</div>
-                                </div>
-                                <div>{{ visit.days_count }} дней</div>
-                            </div>
-                        {% endfor %}
-                    </div>
+                <div class="past">
+                    <h3>Завершённые приёмы</h3>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Время</th>
+                                <th>Врач</th>
+                                <th>Дни после приёма</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for visit in finish_visits %}
+                            <tr>
+                                <td>{{ visit.visit_time }}</td>
+                                <td>{{ visit.doctor_fio }}</td>
+                                <td>{{ visit.days_count }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
                 {% endif %}
             </div>
         </div>
