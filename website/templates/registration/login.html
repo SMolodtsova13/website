@@ -14,7 +14,7 @@
         <div class="card-body">
           <form method="post" action="{% url 'backend:login' %}" novalidate>
             {% csrf_token %}
-            <div style="display: flex; flex-direction: column;">
+            <div style="display: flex; flex-direction: column; align-content: space-around;">
               {{ form }}
             </div>
             <input type="submit" value="OK" class="btn btn-primary mt-3">
@@ -43,6 +43,26 @@
   </div>
   {% endif %}
 </div>
+
+<style>
+  .card-body label {
+    margin: 5px;
+  }
+  .card-body input {
+    margin: 5px;
+  }
+
+  .modal {
+   position: absolute;
+   top: 80px;
+   right: 100px;
+   bottom: 0;
+   left: 0;
+   z-index: 10040;
+   overflow: auto;
+   overflow-y: auto;
+}
+</style>
 
 <script>
   // Показываем модальное окно, если есть ошибка авторизации

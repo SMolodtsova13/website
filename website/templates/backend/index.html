@@ -8,29 +8,29 @@
         <div class="content">
             <h2>Личный кабинет</h2>
             <div class="custom-select-container">
-                <select id="location-select" class="custom-select">
+                <select id="location-select" class="form-select mb-3" style="width:50%">
                     <option value="person1">{{ patient_fio }}</option>
                 </select>
             </div>
             <div class="custom-select-container mb20">
-                <select id="location-select" class="custom-select">
+                <select id="location-select" class="form-select mb-3" style="width:50%">
                     {% for clinic in clinics %}
                         <option>{{ clinic }}</option>
                     {% endfor %}
                 </select>
             </div>
 
-            <div class="buttons">
+            <div class="buttons mb-3">
                 <button type="button" class="btn btn-secondary" onclick="showPopup();">Заказать звонок</button>
                 <button type="button" class="btn btn-secondary" onclick="Telegram.WebApp.showAlert('Справка заказана');">Заказать справку</button>
             </div>
             <div class="accounts">
                 <div class="account personal">
-                    <span class="account-title">Личный счёт</span>
+                    <span class="account-title">Личный счёт:</span>
                     <span class="account-balance">{{ personal_account }}</span>
                 </div>
                 <div class="account family">
-                    <span class="account-title">Семейный счёт</span>
+                    <span class="account-title">Семейный счёт:</span>
                     <span class="account-balance">{{ family_account }}</span>
                 </div>
             </div>
